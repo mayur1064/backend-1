@@ -1,0 +1,1132 @@
+CREATE TABLE `college` (
+  `College_id` int(11) NOT NULL,
+  `College_Name` varchar(255) NOT NULL,
+  `College_FullName` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `college`
+--
+
+INSERT INTO `college` (`College_id`, `College_Name`, `College_FullName`) VALUES
+(1, 'VIT', 'Vishwakarma Institute Of Technology'),
+(2, 'VIIT', 'Vishwakarma Institute Of Information Technology'),
+(3, 'VU', 'Vishwakarma University');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company`
+--
+
+CREATE TABLE `company` (
+  `Company_id` int(11) NOT NULL,
+  `Company_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `company`
+--
+
+INSERT INTO `company` (`Company_id`, `Company_name`) VALUES
+(1, 'Infosys'),
+(2, 'Tech Mahindra'),
+(3, 'Wipro'),
+(4, 'TCS'),
+(5, 'LTI'),
+(6, 'Cognizant');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `department`
+--
+
+CREATE TABLE `department` (
+  `Department_id` int(11) NOT NULL,
+  `Department_Name` varchar(255) NOT NULL,
+  `College_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`Department_id`, `Department_Name`, `College_id`) VALUES
+(1, 'Computer Science', 1),
+(2, 'Electronics Engineering', 2),
+(3, 'Mechanical Engineering', 1),
+(4, 'Electrical Engineering', 1),
+(5, 'Information Technology', 1),
+(6, 'Civil Engineering', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ftrmaster`
+--
+
+CREATE TABLE `ftrmaster` (
+  `ftr_master_id` int(11) NOT NULL,
+  `ftr_number` int(11) NOT NULL,
+  `ftr_name` varchar(30) NOT NULL,
+  `ay` varchar(9) NOT NULL,
+  `sem` int(11) NOT NULL,
+  `College_id` int(11) NOT NULL,
+  `Department_id` int(11) NOT NULL,
+  `No_of_Questions` int(11) NOT NULL,
+  `Due_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ftrmaster`
+--
+
+INSERT INTO `ftrmaster` (`ftr_master_id`, `ftr_number`, `ftr_name`, `ay`, `sem`, `College_id`, `Department_id`, `No_of_Questions`, `Due_date`) VALUES
+(1, 1, 'First', '2020-2021', 2, 1, 1, 3, '2021-01-23'),
+(2, 2, 'second', '2020-2021', 1, 1, 1, 4, NULL),
+(3, 3, 'third', '2020-2021', 2, 1, 1, 15, NULL),
+(4, 4, 'OKAY', '2020-2021', 2, 1, 1, 5, '2021-03-10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ftr_project_group`
+--
+
+CREATE TABLE `ftr_project_group` (
+  `ftr_projectgroup_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `ftr_master_id` int(11) NOT NULL,
+  `isreviewdone` tinyint(1) DEFAULT 0,
+  `reviewer_id` int(11) DEFAULT NULL,
+  `review` text DEFAULT NULL,
+  `Submit_Date` date NOT NULL,
+  `Approved_date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ftr_project_group`
+--
+
+INSERT INTO `ftr_project_group` (`ftr_projectgroup_id`, `group_id`, `ftr_master_id`, `isreviewdone`, `reviewer_id`, `review`, `Submit_Date`, `Approved_date`) VALUES
+(1, 1, 1, 0, NULL, NULL, '2021-01-20', NULL),
+(2, 1, 4, 1, 13, 'Jinesh', '2021-02-28', '2021-02-28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ftr_questions`
+--
+
+CREATE TABLE `ftr_questions` (
+  `ftr_questions_id` int(11) NOT NULL,
+  `question_number` int(11) NOT NULL,
+  `ftr_master_id` int(11) NOT NULL,
+  `question_text` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ftr_questions`
+--
+
+INSERT INTO `ftr_questions` (`ftr_questions_id`, `question_number`, `ftr_master_id`, `question_text`) VALUES
+(1, 1, 1, 'Question1'),
+(2, 2, 1, 'Question2'),
+(3, 3, 1, 'Question3'),
+(4, 1, 4, 'Height?'),
+(5, 2, 4, 'wt?'),
+(6, 3, 4, 'c'),
+(7, 4, 4, 'd'),
+(8, 5, 4, 'e');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ftr_question_ftr_group`
+--
+
+CREATE TABLE `ftr_question_ftr_group` (
+  `ftr_ques_gro_id` int(11) NOT NULL,
+  `ftr_question_id` int(11) NOT NULL,
+  `ftr_project_group_id` int(11) NOT NULL,
+  `ftr_master_id` int(11) NOT NULL,
+  `Answer` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ftr_question_ftr_group`
+--
+
+INSERT INTO `ftr_question_ftr_group` (`ftr_ques_gro_id`, `ftr_question_id`, `ftr_project_group_id`, `ftr_master_id`, `Answer`) VALUES
+(1, 1, 1, 1, 'YES'),
+(2, 2, 1, 1, 'YES'),
+(3, 3, 1, 1, 'YES'),
+(4, 4, 1, 4, 'YES'),
+(5, 5, 1, 4, 'YES'),
+(6, 6, 1, 4, 'YES'),
+(7, 7, 1, 4, 'YES'),
+(8, 8, 1, 4, 'YES');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `industryproject`
+--
+
+CREATE TABLE `industryproject` (
+  `industry_project_id` int(11) NOT NULL,
+  `Company_id` int(11) DEFAULT NULL,
+  `DueDate` datetime NOT NULL,
+  `Description` text NOT NULL,
+  `FacultyRef` int(11) DEFAULT NULL,
+  `Links` mediumtext NOT NULL,
+  `College_id` int(11) NOT NULL,
+  `visible` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `industryproject`
+--
+
+INSERT INTO `industryproject` (`industry_project_id`, `Company_id`, `DueDate`, `Description`, `FacultyRef`, `Links`, `College_id`, `visible`) VALUES
+(1, 1, '2021-01-04 12:03:22', 'Abcd', 2, 'abc.com', 2, 1),
+(2, 4, '2021-01-08 12:03:22', 'wxyz', 3, 'xyz.com', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `industryproject_department`
+--
+
+CREATE TABLE `industryproject_department` (
+  `industryproject_department_id` int(11) NOT NULL,
+  `industryproject_id` int(11) DEFAULT NULL,
+  `Department_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `industryproject_domain`
+--
+
+CREATE TABLE `industryproject_domain` (
+  `industryproject_domain_id` int(11) NOT NULL,
+  `industryproject_id` int(11) DEFAULT NULL,
+  `Domain_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `instructor`
+--
+
+CREATE TABLE `instructor` (
+  `Instructor_id` int(11) NOT NULL,
+  `Person_id` int(11) NOT NULL,
+  `Domain_Pref_1` int(11) DEFAULT NULL,
+  `Domain_Pref_2` int(11) DEFAULT NULL,
+  `Domain_Pref_3` int(11) DEFAULT NULL,
+  `registered` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `instructor`
+--
+
+INSERT INTO `instructor` (`Instructor_id`, `Person_id`, `Domain_Pref_1`, `Domain_Pref_2`, `Domain_Pref_3`, `registered`) VALUES
+(1, 13, 1, 2, 3, 1),
+(2, 14, 2, 1, 4, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `learner`
+--
+
+CREATE TABLE `learner` (
+  `Learner_id` int(11) NOT NULL,
+  `Module_id` int(11) NOT NULL,
+  `Person_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `learner`
+--
+
+INSERT INTO `learner` (`Learner_id`, `Module_id`, `Person_id`) VALUES
+(9, 1, 10),
+(10, 1, 5),
+(11, 1, 7),
+(12, 1, 11),
+(13, 1, 8),
+(14, 1, 9),
+(15, 1, 6),
+(16, 1, 12);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `learner_project_reg`
+--
+
+CREATE TABLE `learner_project_reg` (
+  `Learner_Reg_id` int(11) NOT NULL,
+  `Group_id` int(11) DEFAULT NULL,
+  `Learner_id` int(11) NOT NULL,
+  `registered` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `learner_project_reg`
+--
+
+INSERT INTO `learner_project_reg` (`Learner_Reg_id`, `Group_id`, `Learner_id`, `registered`) VALUES
+(1, 1, 10, 1),
+(2, 1, 15, 1),
+(3, 1, 11, 1),
+(4, 1, 13, 1),
+(5, 2, 14, 1),
+(6, 2, 9, 1),
+(7, 2, 12, 1),
+(8, 2, 16, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `module`
+--
+
+CREATE TABLE `module` (
+  `Module_id` int(11) NOT NULL,
+  `Module_Name` varchar(255) NOT NULL,
+  `College_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `module`
+--
+
+INSERT INTO `module` (`Module_id`, `Module_Name`, `College_id`) VALUES
+(1, 'Project', 1),
+(2, 'Internship', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `persons`
+--
+
+CREATE TABLE `persons` (
+  `Person_id` int(11) NOT NULL,
+  `grno_EmpCode` varchar(10) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `FullName` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `Mobile` int(11) NOT NULL,
+  `department` int(11) NOT NULL,
+  `college` int(11) NOT NULL,
+  `roleId` int(10) NOT NULL DEFAULT 1,
+  `usertype_id` int(11) NOT NULL DEFAULT 1,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `Password` tinytext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `persons`
+--
+
+INSERT INTO `persons` (`Person_id`, `grno_EmpCode`, `username`, `FullName`, `email`, `Mobile`, `department`, `college`, `roleId`, `usertype_id`, `createdAt`, `updatedAt`, `Password`) VALUES
+(5, '17u363', 'sachin', 'Sachin Ghuge', 'sachin@gmail.com', 1218674653, 1, 1, 2, 1, '2021-01-14 00:00:00', '2021-01-14 00:00:00', '$2a$08$pR0jGsiqTmwBtgsk0hycsuTHX2I2wS7OGBhnGGPh/B6s/XdT.xA8O'),
+(6, '17u898', 'Aniket', 'Aniket Chougule', 'anket@123.com', 1218674653, 1, 1, 1, 1, '2021-01-14 06:13:49', '2021-01-14 06:13:49', '$2a$08$EK.5ZBg7qkMfQOBySYKpPu5V9VjO2NKrjbsZTBojNcGAJw0jyt3w.'),
+(7, '17u388', 'sahil', 'Sahil Bhaware', 'sahil@123.com', 1218674653, 3, 1, 2, 1, '2021-01-14 02:39:40', '2021-01-14 02:39:40', '$2a$08$CPUUcKSjKivmwk1u9o/l0.W.oOg3u5NzabxXKak9Q/q7mSh0bI5zm'),
+(8, '17u888', 'Tanuj ', 'Tanuj Modani', 'tanu@123.com', 1213674653, 4, 1, 2, 1, '2021-01-14 02:40:25', '2021-01-14 02:40:25', '$2a$08$usvaKIdeSNW88l99NsgPcO5gLkvgvPnUysG1VXPqoM0V3T8tmeQkW'),
+(9, '17u890', 'Nikhil ', 'Nikhil Bhagat', 'nikhil@123.com', 1218674883, 2, 2, 1, 1, '2021-01-14 02:41:32', '2021-01-14 02:41:32', '$2a$08$HM1di5Gb7WoyxVTFXCt0r.05RUW11eDpX7cpdSvpmlsT/a7tfqqCO'),
+(10, '17u222', 'Shubham', 'Shubham Pawar', 'shubham@123.com', 1168564411, 5, 1, 2, 1, '2021-01-14 02:42:19', '2021-01-14 02:42:19', '$2a$08$CqDWvP/HiJgBSAliTdFPuuuqn/GQCUdP4ncTurkM6.FR.0BqD2VkW'),
+(11, '17u388', 'Rushi', 'Rushikesh Munjale', 'rush@123.com', 2147483647, 6, 1, 2, 1, '2021-01-14 02:43:04', '2021-01-14 02:43:04', '$2a$08$guzlRNNoxs2hKFjdzcBdAeXyjoxXO7enYZ8QVnvQ1pX9/5zfwN6SK'),
+(12, '17u999', 'Rushabh', 'Rushabh Khandekar', 'rushabh@123.com', 1213674653, 4, 1, 2, 1, '2021-01-14 02:43:44', '2021-01-14 02:43:44', '$2a$08$wBeEVAuw56dNrgBPf0h3BOD9ni/sxqiqGbQjOangWGbK1c8PjBP2O'),
+(13, 'S-0011', 'Kolhekar_sir', 'Vikas Kolhekar', 'vikas@123.com', 1218674653, 1, 1, 3, 2, '2021-01-14 02:44:52', '2021-01-14 02:44:52', '$2a$08$42NF0N7EPL7QnE84pidXxu8idTuvVbM81Max/jmadBk5K8A2GbnYu'),
+(14, 'S-0009', 'Tatale_Sir', 'Subhash Tatale', 'subhash@123.com', 1218674883, 1, 1, 3, 2, '2021-01-14 02:46:02', '2021-01-14 02:46:02', '$2a$08$v3L1s.7cyCXIyx5BWVfbLOiYl5Oi4cdR0O7Tls6HWAeEC6oDT5hme'),
+(15, 'null', 'Sachin_sir', 'Sachin Sakhare', 'sachin1@123.com', 1213674653, 1, 1, 4, 2, '2021-01-14 02:46:54', '2021-01-14 02:46:54', '$2a$08$oHsl3JCbMIgL20YV6GHTseVvEv9AwJITVWZolxqteLIrHStId7u/a'),
+(16, 'null', 'Pawar_sir', 'Shreyas Pawar', 'shre@123.com', 1218674653, 4, 1, 6, 2, '2021-01-14 02:47:57', '2021-01-14 02:47:57', '$2a$08$Ywo/M.6tvEtfM3dsvIMY/.Qt0qc98MAOKRjelIG7wSvXKbj/mSZVK'),
+(18, 'null', 'Kulkarni_sir', 'Atul Kulkarni', 'atul@123.com', 1218674653, 1, 1, 5, 2, '2021-01-14 02:49:04', '2021-01-14 02:49:04', '$2a$08$Ld..aS2boBB6KUGsZupY3eUlEW4YstpPViM7JQYGwCinDI1tA.W7O'),
+(19, 'null', 'Nivedita_Madam', 'Shreya Nivedita', 'shreya@123.com', 1218674653, 1, 1, 7, 2, '2021-01-14 02:50:02', '2021-01-14 02:50:02', '$2a$08$TD8aLlQyGg4duUSWcgimQ.JotFCogVLydpfAxiM.3sPD99yC9b9GK'),
+(20, '21810002', '21810002', 'Jinesh B', 'jinesh.21810002@viit.ac.in', 1234, 1, 1, 1, 1, '2021-02-28 08:46:33', '2021-02-28 08:46:33', '$2a$08$NEy4zmnqgMtLYU7N4k/G1OeKnZpRMKmEgey.hk7Ok7HpRLz3bv49i');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_activity_log`
+--
+
+CREATE TABLE `project_activity_log` (
+  `Activity_id` int(11) NOT NULL,
+  `Activity_Name` varchar(255) NOT NULL,
+  `Activity_Description` text NOT NULL,
+  `Activity_dateTime` datetime NOT NULL,
+  `Person_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_domain`
+--
+
+CREATE TABLE `project_domain` (
+  `Domain_id` int(11) NOT NULL,
+  `Domain_Name` varchar(255) NOT NULL,
+  `Department_id` int(11) DEFAULT NULL,
+  `College_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `project_domain`
+--
+
+INSERT INTO `project_domain` (`Domain_id`, `Domain_Name`, `Department_id`, `College_id`) VALUES
+(1, 'Web Developement', 1, 2),
+(2, 'Application Developement', 1, 2),
+(3, 'Artificial Intelligence', 1, 2),
+(4, 'Machine Learning', 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_group`
+--
+
+CREATE TABLE `project_group` (
+  `Group_id` int(11) NOT NULL,
+  `Group_Name` varchar(255) DEFAULT NULL,
+  `Group_title` text DEFAULT NULL,
+  `Instructor_id2` int(11) DEFAULT NULL,
+  `Instructor_id1` int(11) DEFAULT NULL,
+  `Instructor_id_industry` int(11) DEFAULT NULL,
+  `initial_Time` int(11) NOT NULL DEFAULT 0,
+  `Design_Time` int(11) NOT NULL DEFAULT 0,
+  `Devlopment_Time` int(11) NOT NULL DEFAULT 0,
+  `Testing_Time` int(11) NOT NULL DEFAULT 0,
+  `Deployment_Time` int(11) NOT NULL DEFAULT 0,
+  `Department_id` int(11) DEFAULT NULL,
+  `College_id` int(11) DEFAULT NULL,
+  `final_domain` int(11) DEFAULT NULL,
+  `Domain_Pref_1` int(11) DEFAULT NULL,
+  `Domain_Pref_2` int(11) DEFAULT NULL,
+  `Domain_Pref_3` int(11) DEFAULT NULL,
+  `Status_id` int(11) DEFAULT NULL,
+  `Project_Type_id` int(11) DEFAULT NULL,
+  `industry_project_id` int(11) DEFAULT NULL,
+  `Objective` text DEFAULT NULL,
+  `Scope` text DEFAULT NULL,
+  `createDate` date DEFAULT NULL,
+  `startDate` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `project_group`
+--
+
+INSERT INTO `project_group` (`Group_id`, `Group_Name`, `Group_title`, `Instructor_id2`, `Instructor_id1`, `Instructor_id_industry`, `initial_Time`, `Design_Time`, `Devlopment_Time`, `Testing_Time`, `Deployment_Time`, `Department_id`, `College_id`, `final_domain`, `Domain_Pref_1`, `Domain_Pref_2`, `Domain_Pref_3`, `Status_id`, `Project_Type_id`, `industry_project_id`, `Objective`, `Scope`, `createDate`, `startDate`) VALUES
+(1, 'BE-COMP-PRJ-20-21-1', 'Project Monitoring', 2, 1, 2, 2, 3, 5, 3, 3, 1, 1, 2, 2, 3, 1, 3, 1, 1, 'object\nobject\nobject', 'scope \nscope', '2021-01-04', '2021-01-20'),
+(2, 'BE-COMP-PRJ-20-21-2', 'Web design 2.0', 1, 2, 2, 3, 3, 2, 2, 3, 1, 1, 3, 3, 2, 4, 1, 6, 2, 'nothing at this moment', 'nothing at this moment', '2021-01-06', '2021-02-28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_task`
+--
+
+CREATE TABLE `project_task` (
+  `Task_id` int(11) NOT NULL,
+  `Group_id` int(11) NOT NULL,
+  `Task_Name` varchar(255) NOT NULL,
+  `Alloted_To` varchar(255) NOT NULL,
+  `Due_Date` date NOT NULL,
+  `Start_date` date DEFAULT NULL,
+  `Task_Details` text,
+  `Challenges` text NOT NULL DEFAULT 'NA',
+  `Submitted_Date` date DEFAULT NULL,
+  `Reason` text DEFAULT NULL,
+  `Approved_Date` date DEFAULT NULL,
+  `Status` varchar(255) NOT NULL,
+  `Deleted_Date` date DEFAULT NULL,
+  `Task_status` int(11) DEFAULT 2,
+  `Rejected_count` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `project_task`
+--
+
+INSERT INTO `project_task` (`Task_id`, `Group_id`, `Task_Name`, `Alloted_To`, `Due_Date`, `Start_date`, `Task_Details`, `Challenges`, `Submitted_Date`, `Reason`, `Approved_Date`, `Status`, `Deleted_Date`, `Task_status`, `Rejected_count`) VALUES
+(1, 1, 'ANiker', '6', '2021-01-20', '2021-01-20', 'Aniket', 'Change', '2021-01-20', NULL, '2021-01-20', 'Done', '0000-00-00', 2, 0),
+(2, 1, 'Sahil', '6', '2021-01-27', '2021-01-20', 'ghj', 'GHJ', '2021-02-01', NULL, '2021-02-01', 'Done', '0000-00-00', 1, 0),
+(3, 1, 'Sachin', '6', '2021-01-21', '2021-01-20', '', 'NA', NULL, NULL, '0000-00-00', 'Doings', '0000-00-00', 2, 0),
+(4, 1, 'dfghjkl', '6', '2021-01-21', '2021-02-01', 'NA', 'NA', NULL, NULL, NULL, 'Doings', '2021-01-20', 2, 0),
+(5, 1, 'Tanuj', '8', '2021-01-20', '2021-02-01', 'NA', 'NA', NULL, NULL, NULL, 'Doings', NULL, 2, 0),
+(6, 1, 'html page for iot', '6', '2021-02-01', '2021-02-04', 'NA', 'NA', NULL, NULL, NULL, 'Doings', NULL, 2, 0),
+(7, 1, 'CSS ', '6', '2021-02-04', '2021-02-10', 'NA', 'NA', NULL, NULL, NULL, 'Doings', NULL, 2, 0),
+(8, 1, 'Trail', '6', '2021-02-28', NULL, 'NA', 'NA', NULL, NULL, NULL, 'None', NULL, 2, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_task_logs`
+--
+
+CREATE TABLE `project_task_logs` (
+  `Project_Task_id` int(11) NOT NULL,
+  `Task_id` int(11) NOT NULL,
+  `Group_id` int(11) NOT NULL,
+  `Task_Name` varchar(255) NOT NULL,
+  `Alloted_To` varchar(255) NOT NULL,
+  `Due_Date` date NOT NULL,
+  `Start_date` date NOT NULL,
+  `Task_Details` text NOT NULL DEFAULT 'NA',
+  `Challenges` text NOT NULL DEFAULT 'NA',
+  `Approved_Date` date NOT NULL,
+  `Status` varchar(255) NOT NULL,
+  `Deleted_Date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_type`
+--
+
+CREATE TABLE `project_type` (
+  `Project_Type_id` int(11) NOT NULL,
+  `Project_Type_Name` varchar(255) NOT NULL,
+  `College_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `project_type`
+--
+
+INSERT INTO `project_type` (`Project_Type_id`, `Project_Type_Name`, `College_id`) VALUES
+(1, 'Inhouse', 1),
+(2, 'Industrial', 1),
+(3, 'Industrial', 2),
+(4, 'Inhouse', 2),
+(5, 'Inhouse', 3),
+(6, 'Industrial', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `college_id` int(11) NOT NULL DEFAULT 1,
+  `createdAt` datetime DEFAULT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `college_id`, `createdAt`, `updatedAt`) VALUES
+(1, 'Leader', 1, NULL, '0000-00-00 00:00:00'),
+(2, 'Member', 1, NULL, '0000-00-00 00:00:00'),
+(3, 'Guide', 1, NULL, '0000-00-00 00:00:00'),
+(4, 'Hod', 1, NULL, '0000-00-00 00:00:00'),
+(5, 'Director', 1, NULL, '0000-00-00 00:00:00'),
+(6, 'Management', 1, NULL, '0000-00-00 00:00:00'),
+(7, 'Coordinator', 1, NULL, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status`
+--
+
+CREATE TABLE `status` (
+  `Status_id` int(11) NOT NULL,
+  `Status_Name` varchar(255) NOT NULL,
+  `College_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `status`
+--
+
+INSERT INTO `status` (`Status_id`, `Status_Name`, `College_id`) VALUES
+(1, 'Lagging', 2),
+(2, 'On Time', 2),
+(3, 'Leading', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `support`
+--
+
+CREATE TABLE `support` (
+  `Support_id` int(11) NOT NULL,
+  `Group_id` int(11) NOT NULL,
+  `Learner_id` int(11) NOT NULL,
+  `Support_Description_id` int(11) NOT NULL,
+  `Resolved` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `support_reason`
+--
+
+CREATE TABLE `support_reason` (
+  `Support_Description_id` int(11) NOT NULL,
+  `Support_Description_Name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usertype`
+--
+
+CREATE TABLE `usertype` (
+  `User_id` int(11) NOT NULL,
+  `User_Name` varchar(255) NOT NULL,
+  `College_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `usertype`
+--
+
+INSERT INTO `usertype` (`User_id`, `User_Name`, `College_id`) VALUES
+(1, 'Learner', 1),
+(2, 'Instructor', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_roles`
+--
+
+CREATE TABLE `user_roles` (
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `roleId` int(11) NOT NULL,
+  `Person_Id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_roles`
+--
+
+INSERT INTO `user_roles` (`createdAt`, `updatedAt`, `roleId`, `Person_Id`) VALUES
+('2020-12-13 04:54:43', '2020-12-13 04:54:43', 1, 6),
+('2021-01-14 02:41:32', '2021-01-14 02:41:32', 1, 9),
+('2021-01-14 02:43:44', '2021-01-14 02:43:44', 1, 12),
+('2021-02-28 08:46:33', '2021-02-28 08:46:33', 1, 20),
+('2020-12-10 08:56:03', '2020-12-10 08:56:41', 2, 5),
+('2021-01-14 02:39:40', '2021-01-14 02:39:40', 2, 7),
+('2021-01-14 02:40:26', '2021-01-14 02:40:26', 2, 8),
+('2021-01-14 02:42:19', '2021-01-14 02:42:19', 2, 10),
+('2021-01-14 02:43:04', '2021-01-14 02:43:04', 2, 11),
+('2021-01-14 02:44:57', '2021-01-14 02:44:57', 3, 13),
+('2021-01-14 02:46:03', '2021-01-14 02:46:03', 3, 14),
+('2021-01-14 02:50:02', '2021-01-14 02:50:02', 3, 19),
+('2021-01-14 02:46:54', '2021-01-14 02:46:54', 4, 15),
+('2021-01-14 02:49:04', '2021-01-14 02:49:04', 5, 18),
+('2021-01-14 02:47:58', '2021-01-14 02:47:58', 6, 16);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `week_status`
+--
+
+CREATE TABLE `week_status` (
+  `week_status_id` int(11) NOT NULL,
+  `week` int(11) NOT NULL,
+  `No_of_tasks` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `due_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `week_status`
+--
+
+INSERT INTO `week_status` (`week_status_id`, `week`, `No_of_tasks`, `group_id`, `status`, `start_date`, `due_date`) VALUES
+(1, 1, 5, 1, 1, '2021-01-18', '2021-01-31'),
+(2, 2, 4, 1, 1, '2021-02-01', '2021-02-07'),
+(3, 3, 0, 1, 2, '2021-02-08', '2021-02-14'),
+(4, 4, 0, 1, 2, '2021-02-15', '2021-02-21'),
+(5, 5, 2, 1, 1, '2021-02-22', '2021-02-28'),
+(6, 6, 0, 1, 2, '2021-03-01', '2021-03-07'),
+(7, 7, 0, 1, 2, '2021-03-08', '2021-03-14'),
+(8, 8, 0, 1, 2, '2021-03-15', '2021-03-21'),
+(9, 9, 0, 1, 2, '2021-03-22', '2021-03-28'),
+(10, 10, 0, 1, 2, '2021-03-29', '2021-04-04'),
+(11, 11, 0, 1, 2, '2021-04-05', '2021-04-11'),
+(12, 12, 0, 1, 2, '2021-04-12', '2021-04-18'),
+(13, 13, 0, 1, 2, '2021-04-19', '2021-04-25'),
+(14, 14, 0, 1, 2, '2021-04-26', '2021-05-02'),
+(15, 15, 0, 1, 2, '2021-05-03', '2021-05-09'),
+(16, 16, 0, 1, 2, '2021-05-10', '2021-05-16'),
+(17, 1, 0, 2, 2, '2021-03-01', '2021-03-07'),
+(18, 2, 0, 2, 2, '2021-03-08', '2021-03-14'),
+(19, 3, 0, 2, 2, '2021-03-15', '2021-03-21'),
+(20, 4, 0, 2, 2, '2021-03-22', '2021-03-28'),
+(21, 5, 0, 2, 2, '2021-03-29', '2021-04-04'),
+(22, 6, 0, 2, 2, '2021-04-05', '2021-04-11'),
+(23, 7, 0, 2, 2, '2021-04-12', '2021-04-18'),
+(24, 8, 0, 2, 2, '2021-04-19', '2021-04-25'),
+(25, 9, 0, 2, 2, '2021-04-26', '2021-05-02'),
+(26, 10, 0, 2, 2, '2021-05-03', '2021-05-09'),
+(27, 11, 0, 2, 2, '2021-05-10', '2021-05-16'),
+(28, 12, 0, 2, 2, '2021-05-17', '2021-05-23'),
+(29, 13, 0, 2, 2, '2021-05-24', '2021-05-30');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `college`
+--
+ALTER TABLE `college`
+  ADD PRIMARY KEY (`College_id`);
+
+--
+-- Indexes for table `company`
+--
+ALTER TABLE `company`
+  ADD PRIMARY KEY (`Company_id`);
+
+--
+-- Indexes for table `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`Department_id`),
+  ADD KEY `Department_fk0` (`College_id`);
+
+--
+-- Indexes for table `ftrmaster`
+--
+ALTER TABLE `ftrmaster`
+  ADD PRIMARY KEY (`ftr_master_id`),
+  ADD KEY `collage_id` (`College_id`),
+  ADD KEY `Department_id` (`Department_id`);
+
+--
+-- Indexes for table `ftr_project_group`
+--
+ALTER TABLE `ftr_project_group`
+  ADD PRIMARY KEY (`ftr_projectgroup_id`),
+  ADD KEY `ftr_master_id` (`ftr_master_id`),
+  ADD KEY `reviewer_id` (`reviewer_id`),
+  ADD KEY `group_id` (`group_id`);
+
+--
+-- Indexes for table `ftr_questions`
+--
+ALTER TABLE `ftr_questions`
+  ADD PRIMARY KEY (`ftr_questions_id`),
+  ADD KEY `ftr_master_id` (`ftr_master_id`);
+
+--
+-- Indexes for table `ftr_question_ftr_group`
+--
+ALTER TABLE `ftr_question_ftr_group`
+  ADD PRIMARY KEY (`ftr_ques_gro_id`),
+  ADD KEY `ftr_master_id` (`ftr_master_id`),
+  ADD KEY `ftr_project_group_id` (`ftr_project_group_id`),
+  ADD KEY `ftr_question_id` (`ftr_question_id`);
+
+--
+-- Indexes for table `industryproject`
+--
+ALTER TABLE `industryproject`
+  ADD PRIMARY KEY (`industry_project_id`),
+  ADD KEY `IndustryProject_fk3` (`FacultyRef`),
+  ADD KEY `IndustryProject_fk4` (`College_id`),
+  ADD KEY `Company_id` (`Company_id`);
+
+--
+-- Indexes for table `industryproject_department`
+--
+ALTER TABLE `industryproject_department`
+  ADD PRIMARY KEY (`industryproject_department_id`),
+  ADD KEY `industryproject_id` (`industryproject_id`),
+  ADD KEY `Department_id` (`Department_id`);
+
+--
+-- Indexes for table `industryproject_domain`
+--
+ALTER TABLE `industryproject_domain`
+  ADD PRIMARY KEY (`industryproject_domain_id`),
+  ADD KEY `industryproject_id` (`industryproject_id`),
+  ADD KEY `Domain_id` (`Domain_id`);
+
+--
+-- Indexes for table `instructor`
+--
+ALTER TABLE `instructor`
+  ADD PRIMARY KEY (`Instructor_id`),
+  ADD KEY `Instructor_fk0` (`Person_id`),
+  ADD KEY `Instructor_fk2` (`Domain_Pref_1`),
+  ADD KEY `Instructor_fk3` (`Domain_Pref_2`),
+  ADD KEY `Instructor_fk4` (`Domain_Pref_3`);
+
+--
+-- Indexes for table `learner`
+--
+ALTER TABLE `learner`
+  ADD PRIMARY KEY (`Learner_id`),
+  ADD KEY `Learner_fk0` (`Module_id`),
+  ADD KEY `Learner_fk1` (`Person_id`);
+
+--
+-- Indexes for table `learner_project_reg`
+--
+ALTER TABLE `learner_project_reg`
+  ADD PRIMARY KEY (`Learner_Reg_id`),
+  ADD KEY `Learner_Project_Reg_fk4` (`Learner_id`),
+  ADD KEY `Learner_Project_Reg_fk0` (`Group_id`);
+
+--
+-- Indexes for table `module`
+--
+ALTER TABLE `module`
+  ADD PRIMARY KEY (`Module_id`),
+  ADD KEY `Module_fk0` (`College_id`);
+
+--
+-- Indexes for table `persons`
+--
+ALTER TABLE `persons`
+  ADD PRIMARY KEY (`Person_id`),
+  ADD KEY `Person_fk0` (`department`),
+  ADD KEY `Person_fk1` (`college`),
+  ADD KEY `Role_id` (`roleId`),
+  ADD KEY `usertype_id` (`usertype_id`);
+
+--
+-- Indexes for table `project_activity_log`
+--
+ALTER TABLE `project_activity_log`
+  ADD PRIMARY KEY (`Activity_id`),
+  ADD KEY `Project_Activity_log_fk0` (`Person_id`);
+
+--
+-- Indexes for table `project_domain`
+--
+ALTER TABLE `project_domain`
+  ADD PRIMARY KEY (`Domain_id`),
+  ADD KEY `Project_Domain_fk0` (`College_id`),
+  ADD KEY `Department_id` (`Department_id`);
+
+--
+-- Indexes for table `project_group`
+--
+ALTER TABLE `project_group`
+  ADD PRIMARY KEY (`Group_id`),
+  ADD UNIQUE KEY `Group_Name` (`Group_Name`),
+  ADD KEY `Project_Group_fk2` (`Instructor_id_industry`),
+  ADD KEY `Project_Group_fk3` (`Department_id`),
+  ADD KEY `Project_Group_fk9` (`Status_id`),
+  ADD KEY `Project_Group_fk10` (`Project_Type_id`),
+  ADD KEY `Project_Group_fk11` (`industry_project_id`),
+  ADD KEY `College_id` (`College_id`),
+  ADD KEY `Domain_Pref_1` (`Domain_Pref_1`),
+  ADD KEY `Domain_Pref_2` (`Domain_Pref_2`),
+  ADD KEY `Domain_Pref_3` (`Domain_Pref_3`),
+  ADD KEY `final_domain` (`final_domain`),
+  ADD KEY `Instructor_id1` (`Instructor_id1`),
+  ADD KEY `Instructor_id2` (`Instructor_id2`);
+
+--
+-- Indexes for table `project_task`
+--
+ALTER TABLE `project_task`
+  ADD PRIMARY KEY (`Task_id`),
+  ADD KEY `Project_Task_fk0` (`Group_id`);
+
+--
+-- Indexes for table `project_task_logs`
+--
+ALTER TABLE `project_task_logs`
+  ADD PRIMARY KEY (`Project_Task_id`),
+  ADD KEY `Project_Task_Logs_fk0` (`Task_id`),
+  ADD KEY `Project_Task_Logs_fk1` (`Group_id`);
+
+--
+-- Indexes for table `project_type`
+--
+ALTER TABLE `project_type`
+  ADD PRIMARY KEY (`Project_Type_id`),
+  ADD KEY `Project_Type_fk0` (`College_id`);
+
+--
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `college_id` (`college_id`);
+
+--
+-- Indexes for table `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`Status_id`),
+  ADD KEY `Status_fk0` (`College_id`);
+
+--
+-- Indexes for table `support`
+--
+ALTER TABLE `support`
+  ADD PRIMARY KEY (`Support_id`),
+  ADD KEY `Support_fk0` (`Group_id`),
+  ADD KEY `Support_fk1` (`Learner_id`),
+  ADD KEY `Support_fk2` (`Support_Description_id`);
+
+--
+-- Indexes for table `support_reason`
+--
+ALTER TABLE `support_reason`
+  ADD PRIMARY KEY (`Support_Description_id`);
+
+--
+-- Indexes for table `usertype`
+--
+ALTER TABLE `usertype`
+  ADD PRIMARY KEY (`User_id`),
+  ADD KEY `College_id` (`College_id`);
+
+--
+-- Indexes for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD PRIMARY KEY (`roleId`,`Person_Id`) USING BTREE,
+  ADD KEY `Person_Id` (`Person_Id`);
+
+--
+-- Indexes for table `week_status`
+--
+ALTER TABLE `week_status`
+  ADD PRIMARY KEY (`week_status_id`),
+  ADD KEY `group_id` (`group_id`),
+  ADD KEY `status` (`status`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `college`
+--
+ALTER TABLE `college`
+  MODIFY `College_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `company`
+--
+ALTER TABLE `company`
+  MODIFY `Company_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `department`
+--
+ALTER TABLE `department`
+  MODIFY `Department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `ftrmaster`
+--
+ALTER TABLE `ftrmaster`
+  MODIFY `ftr_master_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `ftr_project_group`
+--
+ALTER TABLE `ftr_project_group`
+  MODIFY `ftr_projectgroup_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `ftr_questions`
+--
+ALTER TABLE `ftr_questions`
+  MODIFY `ftr_questions_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `ftr_question_ftr_group`
+--
+ALTER TABLE `ftr_question_ftr_group`
+  MODIFY `ftr_ques_gro_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `industryproject`
+--
+ALTER TABLE `industryproject`
+  MODIFY `industry_project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `industryproject_department`
+--
+ALTER TABLE `industryproject_department`
+  MODIFY `industryproject_department_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `industryproject_domain`
+--
+ALTER TABLE `industryproject_domain`
+  MODIFY `industryproject_domain_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `instructor`
+--
+ALTER TABLE `instructor`
+  MODIFY `Instructor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `learner`
+--
+ALTER TABLE `learner`
+  MODIFY `Learner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `learner_project_reg`
+--
+ALTER TABLE `learner_project_reg`
+  MODIFY `Learner_Reg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `module`
+--
+ALTER TABLE `module`
+  MODIFY `Module_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `persons`
+--
+ALTER TABLE `persons`
+  MODIFY `Person_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `project_domain`
+--
+ALTER TABLE `project_domain`
+  MODIFY `Domain_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `project_group`
+--
+ALTER TABLE `project_group`
+  MODIFY `Group_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `project_task`
+--
+ALTER TABLE `project_task`
+  MODIFY `Task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `project_task_logs`
+--
+ALTER TABLE `project_task_logs`
+  MODIFY `Project_Task_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `project_type`
+--
+ALTER TABLE `project_type`
+  MODIFY `Project_Type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `status`
+--
+ALTER TABLE `status`
+  MODIFY `Status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `support`
+--
+ALTER TABLE `support`
+  MODIFY `Support_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `support_reason`
+--
+ALTER TABLE `support_reason`
+  MODIFY `Support_Description_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `usertype`
+--
+ALTER TABLE `usertype`
+  MODIFY `User_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `week_status`
+--
+ALTER TABLE `week_status`
+  MODIFY `week_status_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `department`
+--
+ALTER TABLE `department`
+  ADD CONSTRAINT `Department_fk0` FOREIGN KEY (`College_id`) REFERENCES `college` (`College_id`);
+
+--
+-- Constraints for table `ftrmaster`
+--
+ALTER TABLE `ftrmaster`
+  ADD CONSTRAINT `ftrmaster_ibfk_1` FOREIGN KEY (`College_id`) REFERENCES `college` (`College_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `ftrmaster_ibfk_2` FOREIGN KEY (`Department_id`) REFERENCES `department` (`Department_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `ftr_questions`
+--
+ALTER TABLE `ftr_questions`
+  ADD CONSTRAINT `ftr_questions_ibfk_1` FOREIGN KEY (`ftr_master_id`) REFERENCES `ftrmaster` (`ftr_master_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `industryproject_department`
+--
+ALTER TABLE `industryproject_department`
+  ADD CONSTRAINT `industryproject_department_ibfk_1` FOREIGN KEY (`industryproject_id`) REFERENCES `industryproject` (`industry_project_id`),
+  ADD CONSTRAINT `industryproject_department_ibfk_2` FOREIGN KEY (`Department_id`) REFERENCES `department` (`Department_id`);
+
+--
+-- Constraints for table `project_group`
+--
+ALTER TABLE `project_group`
+  ADD CONSTRAINT `project_group_ibfk_1` FOREIGN KEY (`College_id`) REFERENCES `college` (`College_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_group_ibfk_10` FOREIGN KEY (`final_domain`) REFERENCES `project_domain` (`Domain_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_group_ibfk_11` FOREIGN KEY (`Project_Type_id`) REFERENCES `project_type` (`Project_Type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_group_ibfk_2` FOREIGN KEY (`Department_id`) REFERENCES `department` (`Department_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_group_ibfk_3` FOREIGN KEY (`Domain_Pref_1`) REFERENCES `project_domain` (`Domain_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_group_ibfk_4` FOREIGN KEY (`Domain_Pref_2`) REFERENCES `project_domain` (`Domain_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_group_ibfk_5` FOREIGN KEY (`Domain_Pref_3`) REFERENCES `project_domain` (`Domain_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_group_ibfk_6` FOREIGN KEY (`Instructor_id1`) REFERENCES `instructor` (`Instructor_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_group_ibfk_7` FOREIGN KEY (`Instructor_id2`) REFERENCES `instructor` (`Instructor_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_group_ibfk_8` FOREIGN KEY (`industry_project_id`) REFERENCES `industryproject` (`industry_project_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `project_group_ibfk_9` FOREIGN KEY (`Status_id`) REFERENCES `status` (`Status_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
